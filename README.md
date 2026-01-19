@@ -5,32 +5,37 @@ A production-ready Retrieval-Augmented Generation (RAG) system that allows users
 ## 🚀 Usage
 1.  **Clone the repository**:
     ```bash
-    git clone <repository_url>
-    cd project
-    ```
+    git clone https://github.com/Ashish-kharde1/swiggy-annual-report-rag.git
+    cd swiggy-annual-report-rag
 
-2.  **Install Dependencies**:
+    ```
+2.  **Create a virtual environment**:
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+    ```
+3.  **Install Dependencies**:
     ```bash
     pip install -r requirements.txt
     ```
 
-3.  **Set up Environment Variables**:
+4.  **Set up Environment Variables**:
     - Create a `.env` file in the `project/` directory.
     - Add your Google API Key:
       ```
       GOOGLE_API_KEY=your_google_api_key
       ```
 
-4.  **Ingest Data**:
+5.  **Ingest Data**:
     Process the PDF and generate embeddings (run once):
     ```bash
-    python project/ingest.py
+    python ingest.py
     ```
 
-5.  **Run the Application**:
+6.  **Run the Application**:
     Start the CLI to ask questions:
     ```bash
-    python project/app.py
+    python app.py
     ```
 
 ## 📸 Screenshots

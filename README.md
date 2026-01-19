@@ -61,6 +61,25 @@ A production-ready Retrieval-Augmented Generation (RAG) system that allows users
 -   **Orchestration**: LangChain
 -   **PDF Processing**: PyPDF
 
+## 💡 Design Decisions
+
+### 1. Hybrid Search / MMR Retrieval
+Instead of simple cosine similarity, we use **MMR (Maximal Marginal Relevance)**. This ensures that the retrieved chunks are not just similar to the query but also diverse from each other, providing a broader context to the LLM and reducing repetitive information.
+
+### 2. Local Embeddings (HuggingFace)
+We use `sentence-transformers/all-MiniLM-L6-v2` locally instead of calling an external API for embeddings.
+-   **Cost-Effective**: No API costs for embedding generation.
+-   **Fast**: immense speed for local processing.
+-   **Privacy**: Data text is converted to vectors locally.
+
+### 3. Google Gemini 2.5 Flash
+We chose **Gemini-2.5-Flash** as the inference engine because:
+-   It has a **large context window** (1M+ tokens), allowing it to handle multiple retrieved chunks easily without truncation.
+-   It is significantly **faster** and **cheaper** than larger models while maintaining high accuracy for RAG tasks.
+
+### 4. FAISS Vector Store
+For a standalone local application, **FAISS** (Facebook AI Similarity Search) is lightweight and highly optimized for dense vector clustering and search, avoiding the overhead of running a full database server (like Pgvector or Milvus).
+
 ## 🛡️ Anti-Hallucination Strategy
 
 -   **Strict System Prompt**: The model is explicitly instructed to *only* use provided context and answer "I could not find this information" if the answer is missing.
